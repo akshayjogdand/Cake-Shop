@@ -1,0 +1,30 @@
+{%extends 'homepage.html'%}
+
+
+{%block content%}
+<h2>Login Page</h2>
+
+<form method="post">
+    {%csrf_token%}
+    <table class="table">
+        <tr>
+            <td>UserName</td>
+            <td>
+                <input type="text" name="uname" class="form-control" required>
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>
+                <input type="password" name="pwd" class="form-control" required>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit" class="btn btn-success">Log In</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+{%endblock%}

@@ -1,0 +1,64 @@
+{%extends 'homepage.html' %}
+
+{%block content%}
+<script type="text/javascript">
+    function getConfirm(myid)
+    {
+        res = confirm("You sure you want to delete (y/n)")
+        if(res)
+        {   
+            myform = document.getElementById(myid);
+            myform.submit()
+            
+        }
+    }
+
+    function decrement(myid)
+    {
+        txt = document.getElementById(myid).value
+        if(txt>1)
+        {
+            result = parseInt(txt) -1
+            document.getElementById(myid).value=result
+        }
+    }
+    function increment(myid)
+    {
+        txt = document.getElementById(myid).value
+        if(txt<10)
+        {
+            result = parseInt(txt) +1
+            document.getElementById(myid).value=result
+        }
+    }
+</script>
+<center>
+    <h1>Cart Details</h1>
+    <table class="table">
+        <tr><th>Cake Name</th><th>Price</th><th>Description</th><th>Quantity</th><th>Sub-Total</th></tr>
+
+        {%for items in item%}
+        <form method="post" id="myform{{items.cake.id}}">
+            {%csrf_token%}
+        <tr>
+            <td><input type='hidden' name='cakeid' value='{{items.cake.id}}'>{{items.cake.pname}}</td>
+            <td>{{items.cake.price}}</td>
+            <td>{{items.cake.description}}</td>
+            <td><button type='button' class='btn btn-warning' onclick="decrement('qty{{items.cake.id}}')">-</button>
+                <input type='text' name='qty' id='qty{{items.cake.id}}' value='{{items.qty}}' size="1" >
+                <button type='button' class='btn btn-warning' onclick='increment("qty{{items.cake.id}}")'>+</button>
+            
+                <button type='submit' name='action' value='update' class='btn btn-info' >Update</button></td>
+
+            <td>{% widthratio items.qty 1 items.cake.price %}</td>
+            <td>
+                <button type="button" name="action" value="remove" class="btn btn-danger" onclick="getConfirm('myform{{items.cake.id}}')">Remove</button>
+            </td>
+        </tr>
+    </form>
+        {%endfor%}
+    </table>
+    <hr>
+    <h3>Total: {{request.session.total}}</h3>
+</center>
+{%endblock%}

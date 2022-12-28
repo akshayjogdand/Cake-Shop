@@ -1,0 +1,68 @@
+{%extends 'homepage.html'%}
+
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>Cake Details</h1>
+    <table class="table">
+        <form action="/addtocart" method="post">
+            {%csrf_token%}
+        <tr>
+            <td>Cake Name</td>
+            <td>{{cake.pname}}</td>
+        </tr>
+        <tr>
+            <td>Cake Price</td>
+            <td>{{cake.price}}</td>
+        </tr>
+        <tr>
+            <td>Cake Description</td>
+            <td>{{cake.description}}</td>
+        </tr>
+        <tr>
+            <td>Cake Size</td>
+            <td>{{cake.size}}</td>
+        </tr>
+        <tr>
+            <td>Cake Quantity</td>
+            <td>{{cake.qty}}</td>
+        </tr>
+        <tr>
+            <td>Cake Image</td>
+            <td><img src="{{cake.image.url}} " height="300px" width="300px"/></td>
+        </tr>
+
+        <tr><td>Quantity</td>
+             <td>
+            <select name="qty" class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </td>
+    </tr>
+
+    <tr><td></td>
+        <td>
+            <button type="submit" class="btn btn-success">Add To Cart</button>
+            <input type="hidden" name="cakeid" value="{{cake.id}}">
+        </td>
+        
+    </tr>
+        
+</form>
+    </table>
+</center>   
+</body>
+</html>
+{%endblock%}
